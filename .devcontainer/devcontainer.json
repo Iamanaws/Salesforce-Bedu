@@ -1,0 +1,19 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.234.0/containers/sfdx-project
+{
+    "name": "Salesforce Project Bedu",
+    "dockerFile": "Dockerfile",
+    "extensions": [
+      "salesforce.salesforcedx-vscode",
+      "redhat.vscode-xml",
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "antfu.where-am-i",
+      "oderwat.indent-rainbow",
+      "kjhx.vscode-lifeline"
+    ],
+    "settings": {
+      "salesforcedx-vscode-apex.java.home": "/usr/lib/jvm/java-11-openjdk-amd64"
+    }
+  }
+  
