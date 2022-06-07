@@ -1,4 +1,4 @@
-public with sharing class QuotationHelper {
+public class QuotationHelper implements QuotationSync{
     public QuotationHelper() {
 
     }
@@ -19,5 +19,44 @@ public with sharing class QuotationHelper {
         ];
         
         return products;
+    }
+
+    public Boolean confirmProductExistByCode(String productCode) {
+        
+        Product__c product = [
+            SELECT ID 
+            FROM Product__c
+            WHERE ProductCode__c = :productCode
+        ];
+        
+        if (product != null) {
+            return true;
+        }
+        
+        return false;
+    }
+
+    public Integer searchProductByCode(String productCode) {
+        
+        if (confirmProductExistByCode(productCode)) {
+            
+            List<Inventario__c> existencias = [
+                SELECT Cantidad_dis__c
+                FROM Inventario__c
+                WHERE CodigoProd__c = :productCode
+                LIMIT 1
+            ];
+
+            Integer disponible = Integer.valueOf(existencias[0].Cantidad_dis__c);
+
+            if (disponible != null) {
+                return disponible;
+            }
+        }
+        else {
+            system.debug('No existe un producto para el codigo capturado');
+        }
+
+        return 0;
     }
 }
