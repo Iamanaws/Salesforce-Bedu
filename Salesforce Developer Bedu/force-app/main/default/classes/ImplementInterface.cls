@@ -13,4 +13,3 @@ public class ImplementInterface implements InterfacePractice{
         system.debug(param1);
     }
 }
-
