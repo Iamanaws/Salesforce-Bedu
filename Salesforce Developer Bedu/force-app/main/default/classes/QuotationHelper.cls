@@ -4,11 +4,11 @@ public class QuotationHelper implements QuotationSync{
     }
     
     public void initialConfig() {
-        Account compumundo = new Account(Name = 'Compumundo');
-        Account compuworld = new Account(Name = 'Compuworld');
-        
-        insert compumundo;
-        insert compuworld;
+        List<Account> accs = new List<Account> {
+                                new Account(Name = 'Compumundo'), 
+                                new Account(Name = 'Compuworld')
+                            };
+        insert accs;
     }
     
     public List<Inventario__c> productsInInventory() {
