@@ -23,10 +23,10 @@ public class QuotationHelper implements QuotationSync{
 
     public Boolean confirmProductExistByCode(String productCode) {
         
-        Product__c product = [
+        Product2 product = [
             SELECT ID 
-            FROM Product__c
-            WHERE ProductCode__c = :productCode
+            FROM Product2
+            WHERE ProductCode = :productCode
         ];
         
         if (product != null) {
@@ -58,5 +58,34 @@ public class QuotationHelper implements QuotationSync{
         }
 
         return 0;
+    }
+
+    public void updateReservedQuantity(List<ID> productID, List<Double> Quantity) {
+        
+        Inventario__c inv;
+        
+        List<Product2> products = [
+            SELECT ProductCode FROM Product2
+            WHERE ID = :productID
+        ];
+        
+        for(Integer i = 0; i < products.size(); i++) {
+            
+            Double disp = searchProductByCode(products[i].ProductCode);
+        
+            if(disp > Quantity[i]) {
+                inv = [
+                    SELECT Id, Name, Cantidad_dis__c, Cantidad_apart__c
+                    FROM Inventario__c
+                    WHERE CodigoProd__c = :products[i].productCode
+                    LIMIT 1
+                ];
+                
+                inv.Cantidad_apart__c = inv.Cantidad_apart__c + Quantity[i];
+                inv.Cantidad_dis__c = inv.Cantidad_dis__c - Quantity[i];                
+            }
+        }
+        
+        update inv;
     }
 }
