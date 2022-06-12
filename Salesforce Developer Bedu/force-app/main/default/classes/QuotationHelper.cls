@@ -87,8 +87,8 @@ public class QuotationHelper implements QuotationSync{
                     LIMIT 1
                 ];
                 
-                inv.Cantidad_apart__c = inv.Cantidad_apart__c + Quantity[i];
-                inv.Cantidad_dis__c = inv.Cantidad_dis__c - Quantity[i];                
+                inv.Cantidad_apart__c += Quantity[i];
+                inv.Cantidad_dis__c -= Quantity[i];                
             }
         }
         
