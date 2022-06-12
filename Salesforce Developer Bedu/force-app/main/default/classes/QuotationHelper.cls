@@ -46,9 +46,15 @@ public class QuotationHelper implements QuotationSync{
                 WHERE CodigoProd__c = :productCode
                 LIMIT 1
             ];
-
-            Integer disponible = Integer.valueOf(existencias[0].Cantidad_dis__c);
-
+            
+            Integer disponible = null;
+            
+            try {
+                disponible = Integer.valueOf(existencias[0].Cantidad_dis__c);
+            } catch (Exception e) {
+                system.debug(e);                
+            }            
+			
             if (disponible != null) {
                 return disponible;
             }
