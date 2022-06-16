@@ -23,14 +23,19 @@ public class QuotationHelper implements QuotationSync{
 
     public Boolean confirmProductExistByCode(String productCode) {
         
-        Product2 product = [
-            SELECT ID 
-            FROM Product2
-            WHERE ProductCode = :productCode
-        ];
-        
-        if (product != null) {
-            return true;
+        try {
+            Product2 product = [
+                SELECT ID 
+                FROM Product2
+                WHERE ProductCode = :productCode
+            ];
+            
+            if (product != null) {
+                return true;
+            }
+        }
+        catch (Exception ex) {
+            return false;
         }
         
         return false;
@@ -93,5 +98,26 @@ public class QuotationHelper implements QuotationSync{
         }
         
         update inv;
+    }
+
+    public void StockEmptyAlert() {
+        List<Inventario__c> products = productsInInventory();
+
+        for (Inventario__c product : products) {
+
+            if (product.Cantidad_dis__c == 0) {
+                system.debug('Crear Post en Chatter');
+                //Post to chatter
+                FeedItem objPost = new FeedItem(
+                    ParentId = UserInfo.getUserId(),
+                    Body = 'Producto sin Inventario'
+                );
+                
+                insert objPost;
+
+                String fecha_hora =  system.now().format();
+            }
+
+        }
     }
 }
