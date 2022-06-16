@@ -1,0 +1,29 @@
+<apex:page standardController="Quote" extensions="CustomWebInventoryController" lightningStyleSheets="true">
+    <apex:form >        
+        <apex:pageBlock title="Buscar Producto" >                
+            <apex:outputLabel value="Codigo de Producto "/>
+            <apex:inputText value="{! prodCode }" />
+            <apex:commandButton action="{! search }" value="Buscar" />
+            
+            <br/><br/>
+            <apex:pageMessages rendered="true" escape="false"/>            
+            
+            <apex:pageBlock title="Detalles del Producto" rendered="{! showDetails }">
+                <apex:pageBlockTable value="{! prodList }" var="prod">
+                    <apex:column headerValue="Nombre del Producto" value="{! prod.Name}"/>
+                    <apex:column headerValue="Precio de la Lista" value="{! prod.PricebookEntries[0].UnitPrice}"/>
+                    <apex:column headerValue="Codigo de Producto" value="{! prod.ProductCode}"/>
+                    <apex:column headerValue="Cantidad a Reservar"><apex:inputText value="{! ReservarCantidad }" /></apex:column>
+                    <apex:column headerValue="Cantidad Disponible" value="{! prod.Inventarios__r[0].Cantidad_dis__c}"/>
+                </apex:pageBlockTable>
+                <br/>
+                
+                <apex:commandButton action="{! cancel }" value="Atras" />   
+            	<apex:commandButton action="{! cancel }" value="Cancelar" />   
+            	<apex:commandButton action="{! save }" value="Guardar" /> 
+                <br/><br/><br/>
+            </apex:pageBlock> 
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
