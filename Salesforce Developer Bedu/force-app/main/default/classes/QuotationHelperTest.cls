@@ -119,12 +119,14 @@ public class QuotationHelperTest {
             Cantidad_apart__c = 0
         );
         
-        insert inv;
-
+        insert inv;		
+        
         helper.updateReservedQuantity(new List<Id>{prod.Id}, new List<Double>{2});
         
-        system.assertEquals(8, inv.Cantidad_dis__c);
-        system.assertEquals(2, inv.Cantidad_apart__c);
+        Inventario__c resv = [SELECT Cantidad_apart__c FROM Inventario__c WHERE CodigoProd__c = 'TEST-001' LIMIT 1];
+        system.assertEquals(8, helper.searchProductByCode(prod.ProductCode));
+        system.assertEquals(2, resv.Cantidad_apart__c);       
+        
     }
     
     @isTest
