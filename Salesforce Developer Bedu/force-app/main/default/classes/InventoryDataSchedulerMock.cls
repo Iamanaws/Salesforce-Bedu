@@ -6,7 +6,7 @@ global class InventoryDataSchedulerMock implements HttpCalloutMock {
         HttpResponse response = new HttpResponse();
         response.setHeader('Content-Type', 'application/json');
         response.setBody('{"body":{'
-            + '"inventory":['
+            + '"Inventory":['
             + '{"name":"CL1010_Inv","ProductID":"CL1010","Quan":8589,"BlockedQuan":40},'
             + '{"name":"MC1020_Inv","ProductID":"MC1020","Quan":7605,"BlockedQuan":75},'
             + '{"name":"DLL1030_Inv","ProductID":"DLL1030","Quan":9784,"BlockedQuan":14}'
