@@ -1,0 +1,56 @@
+<template>
+    <lightning-card title="Buscar Producto">
+        <div class="slds-var-m-around_medium">
+            <lightning-input 
+                type="text" 
+                label="Codigo de Producto" 
+                value={prodCode}
+                onchange={searchValue}
+                ></lightning-input>
+                <br/>
+            <lightning-button label="Buscar" onclick={searchProduct}></lightning-button>
+            <br/>
+            <br/>
+        <lightning-card title="Detalles del Producto" if:true={showDetails}>
+            <div class="slds-scrollable">
+                <table class="slds-table slds-table_bordered slds-table_fixed-layout">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col" title="Nombre del Producto" 
+                                class="slds-truncate" style="width: 150px;">Nombre del Producto</th>
+                            <th scope="col" title="Precio de la Lista" 
+                                class="slds-truncate" style="width: 120px;">Precio de la Lista</th>
+                            <th scope="col" title="Codigo de Producto" 
+                                class="slds-truncate" style="width: 145px;">Codigo de Producto</th>
+                            <th scope="col" title="Cantidad a Reservar" 
+                                class="slds-truncate" style="width: 145px;">Cantidad a Reservar</th>
+                            <th scope="col" title="Cantidad Disponible" 
+                                class="slds-truncate" style="width: 140px;">Cantidad Disponible</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="slds-hint-parent">
+                            <td class="slds-truncate">{productName}</td>
+                            <td class="slds-truncate">$ {unitPrice}</td>
+                            <td class="slds-truncate">{productCode}</td>
+                            <td class="slds-truncate">
+                                <lightning-input 
+                                    type="text"
+                                    value={ReservarCantidad}
+                                    onchange={saveValue}
+                                    >
+                                </lightning-input>
+                            </td>
+                            <td class="slds-truncate">{disponible}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br/>
+            </div>            
+            <br/>            
+            <lightning-button label="Atras" onclick={previous}></lightning-button>
+            <lightning-button label="Guardar" onclick={saveProduct}></lightning-button>
+        </lightning-card>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,3 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" >  
+   <c:searchProduct aura:id="SearchProduct" recordId="{!v.recordId}"></c:searchProduct>
+</aura:component>
