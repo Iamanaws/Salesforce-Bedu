@@ -11,7 +11,7 @@ public class QuotationHelper implements QuotationSync{
         insert accs;
     }
     
-    public List<Inventario__c> productsInInventory() {
+    public static List<Inventario__c> productsInInventory() {
         
         List<Inventario__c> products = [
             SELECT ID, Name, CodigoProd__c, Product__c, Cantidad_dis__c, Cantidad_apart__c
@@ -35,7 +35,6 @@ public class QuotationHelper implements QuotationSync{
             }
         }
         catch (Exception ex) {
-            return false;
         }
         
         return false;
@@ -52,13 +51,13 @@ public class QuotationHelper implements QuotationSync{
                 LIMIT 1
             ];
             
-            Integer disponible = null;
+            Integer disponible = null;            
             
             try {
                 disponible = Integer.valueOf(existencias[0].Cantidad_dis__c);
             } catch (Exception e) {
                 system.debug(e);                
-            }            
+            }          
 			
             if (disponible != null) {
                 return disponible;
@@ -100,7 +99,8 @@ public class QuotationHelper implements QuotationSync{
         update inv;
     }
 
-    public void StockEmptyAlert() {
+    @InvocableMethod
+    public static void StockEmptyAlert() {
         List<Inventario__c> products = productsInInventory();
 
         for (Inventario__c product : products) {
@@ -110,7 +110,7 @@ public class QuotationHelper implements QuotationSync{
                 //Post to chatter
                 FeedItem objPost = new FeedItem(
                     ParentId = UserInfo.getUserId(),
-                    Body = 'Producto sin Inventario'
+                    Body = 'Producto sin Inventario: ' + product.Name
                 );
                 
                 insert objPost;
