@@ -15,11 +15,11 @@ public class CustomWebInventoryController {
         QuotationHelper helper = new QuotationHelper();
         
         if (helper.confirmProductExistByCode(prodCode)) {
-            
+        
             prodList = [
                 SELECT Id, Name, ProductCode, 
                 (SELECT Id, Pricebook2Id, UnitPrice FROM PricebookEntries 
-                WHERE Pricebook2Id = '01sIY000002bf3NYAQ'), 
+                    WHERE Pricebook2Id = '01sIY000002bf3NYAQ'), 
                 (SELECT Cantidad_apart__c, Cantidad_dis__c FROM Inventarios__r)
                 FROM Product2
                 WHERE ProductCode = :prodCode             	
