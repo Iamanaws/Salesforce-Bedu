@@ -18,7 +18,7 @@ public class AnimalLocator {
             Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
             
             animalName = (String) ((Map<String, Object>) results.get('animal')).get('name');
-    	}
+        }
 
         return animalName;
     }
