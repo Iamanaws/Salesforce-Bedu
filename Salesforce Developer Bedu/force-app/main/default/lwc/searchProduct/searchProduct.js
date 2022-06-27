@@ -49,7 +49,7 @@ export default class SearchProduct extends LightningElement {
                     message: error.body.message
                 }));
 
-                this.showDetails = false;
+                this.clear();
             })
         }
         else {
@@ -58,7 +58,7 @@ export default class SearchProduct extends LightningElement {
                 message: 'No se a ingresado un codigo de Producto'
                 }));
             
-            this.showDetails = false;
+            this.clear();
         }
     }
 
@@ -76,7 +76,8 @@ export default class SearchProduct extends LightningElement {
                 this.dispatchEvent(new ShowToastEvent({
                     variant:'success',
                     message: 'El producto se agrego correctamente.'
-                })); 
+                }));
+                this.clear();
             })
             .catch(error => {
                 this.dispatchEvent(new ShowToastEvent({
@@ -93,8 +94,9 @@ export default class SearchProduct extends LightningElement {
         }
     }
 
-    previous() {
+    clear() {
         this.prodCode = '';
         this.showDetails = false;
+        this.ReservarCantidad = '';
     }
 }
